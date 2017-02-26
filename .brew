@@ -39,6 +39,14 @@ brew install git
 brew install nvm
 brew install autoenv
 
+brew install yarn
+
+# PyEnv causes issues with Apple Swift. 
+# See http://community.rubymotion.com/t/nameerror-name-run-one-line-is-not-defined/1538/18
+# See https://github.com/Homebrew/homebrew-core/issues/2712
+brew install pyenv
+brew install pyenv-virtualenvwrapper
+
 # Install Brew Cask
 brew tap caskroom/cask
 
