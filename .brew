@@ -12,10 +12,13 @@ brew update
 # Upgrade any already-installed formulae
 brew upgrade
 
+brew tap homebrew/dupes
+brew tap homebrew/versions
+brew tap homebrew/php
+brew tap homebrew/apache
+
 # Install GNU core utilities (those that come with OS X are outdated)
 brew install coreutils
-echo "Don’t forget to add $(brew --prefix coreutils)/libexec/gnubin to \$PATH."
-
 brew install findutils
 
 # Install Bash 4
@@ -24,24 +27,17 @@ brew install bash
 # Install wget with IRI support
 brew install wget --enable-iri
 
+# Install apache manually as we need the path for installing the startup task
+# brew install httpd24 --with-privileged-ports --with-http2
+
 # Install more recent versions of some OS X tools
-brew tap homebrew/dupes
 brew install homebrew/dupes/grep
-brew tap josegonzalez/homebrew-php
-brew install php55
+brew install php56
 
 # Install other useful binaries
 brew install git
 brew install nvm
-brew install jenv
 brew install autoenv
-# brew install swiftenv
-
-# PyEnv causes issues with Apple Swift. 
-# See http://community.rubymotion.com/t/nameerror-name-run-one-line-is-not-defined/1538/18
-# See https://github.com/Homebrew/homebrew-core/issues/2712
-brew install pyenv
-brew install pyenv-virtualenvwrapper
 
 # Install Brew Cask
 brew tap caskroom/cask
@@ -57,22 +53,5 @@ brew cleanup
 NVM_DIR=$(brew --prefix nvm)
 if [ -d "$NVM_DIR" ]; then
     source $NVM_DIR/nvm.sh
-    nvm install v5.11
-fi
-
-# Install Swift
-SWIFTENV_DIR=$(brew --prefix swiftenv)
-if [ -d "$SWIFTENV_DIR" ]; then
-    swiftenv install 3.0.1
-    swiftenv rehash
-fi
-
-# Install Python 2 && 3
-PYENV_DIR=$(brew --prefix pyenv)
-if [ -d "$PYENV_DIR" ]; then
-    pyenv install 3.5.2
-    pyenv rehash
-    
-    pyenv install 2.7.12
-    pyenv rehash
+    nvm install v7.4.0
 fi

@@ -38,42 +38,13 @@ if [ "$(uname -s)" == "Darwin" ]; then
     # Link Homebrew casks in `/Applications` rather than `~/Applications`
     export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
-    # Java + Jenv
-    JENV_DIR=$(brew --prefix jenv)
-    if [ -d "$JENV_DIR" ]; then
-        if [ -d ~/.jenv/versions/1.8 ]; then
-            eval "$(jenv init -)"
-            jenv global 1.8
-            export JAVA_HOME="$(/usr/libexec/java_home)"
-        else
-            echo "Java 1.8 not installed"
-        fi
-    fi
-
-    # SwiftEnv
-    SWIFTENV_DIR=$(brew --prefix swiftenv)
-    if [ -d "$SWIFTENV_DIR" ]; then
-        eval "$(swiftenv init -)"
-        swiftenv global 3.0.1
-    fi
-
     # NodeJs + NVM
     NVM_DIR=$(brew --prefix nvm)
     if [ -d "$NVM_DIR" ]; then
         source $NVM_DIR/nvm.sh &>/dev/null
-        eval "nvm use --delete-prefix v5.11 &>/dev/null"
+        export PATH="/usr/local/opt/nvm/versions/node/$(nvm version 7)/bin:$PATH"
+        # eval "nvm use --delete-prefix v5.11 &>/dev/null"
     fi 
-
-    # Python/PyEnv/Virtualenvs
-    PYENV_DIR=$(brew --prefix pyenv)
-    if [ -d "$PYENV_DIR" ]; then
-        export PYENV_ROOT="$PYENV_DIR"
-        eval "$(pyenv init -)"
-        pyenv global 2.7.12
-
-        export WORKON_HOME="~/.virtualenvs"
-        pyenv virtualenvwrapper
-    fi
     
     # AutoEnv
     source "$(brew --prefix autoenv)/activate.sh"
